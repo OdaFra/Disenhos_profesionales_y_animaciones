@@ -238,3 +238,68 @@ class _HeaderWavePainter extends CustomPainter {
     return true;
   }
 }
+
+class HeaderWaveGradiente extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      child: CustomPaint(
+        painter: _HeaderWaveGradientePainter(),
+      ),
+    );
+  }
+}
+
+class _HeaderWaveGradientePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Rect rect = new Rect.fromCircle(
+      center: Offset(0, 55.0),
+      radius: 180,
+    );
+
+    // ignore: prefer_const_declarations
+    final Gradient gradient = const LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: <Color>[
+          Color(0xff6d05e8),
+          Color(0xffc012ff),
+          Color(0xff6d05fa)
+        ],
+        stops: [
+          0.2,
+          0.5,
+          1.0
+        ]);
+
+    final paint = Paint()..shader = gradient.createShader(rect);
+    //propiedades
+    paint.color = Color(0xff0069c0);
+    // stroke es para las lineas
+    // fill rellena el campo total
+
+    paint.style = PaintingStyle.fill;
+    paint.strokeWidth = 2;
+
+    final path = new Path();
+
+    //Dibujar con el path y el lapiz
+    path.lineTo(0, size.height * 0.25);
+    path.quadraticBezierTo(size.width * 0.25, size.height * 0.30,
+        size.width * 0.5, size.height * 0.25);
+    path.quadraticBezierTo(
+        size.width * 0.75, size.height * 0.20, size.width, size.height * 0.25);
+    path.lineTo(size.width, 0);
+    canvas.drawPath(path, paint);
+
+    //reto hacer la ola hacia abajo
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}
