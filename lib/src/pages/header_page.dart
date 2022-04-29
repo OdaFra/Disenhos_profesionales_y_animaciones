@@ -6,6 +6,6 @@ class HeardesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: HeaderDiagonal());
+    return Scaffold(body: HeaderWave());
   }
 }
