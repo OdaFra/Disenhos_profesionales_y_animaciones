@@ -24,6 +24,9 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
   late AnimationController controller;
   late Animation<double> rotacion;
   late Animation<double> opacidad;
+  late Animation<double> opacidadOut;
+  late Animation<double> moverDerecha;
+  late Animation<double> agrandar;
 
   @override
   void initState() {
@@ -44,18 +47,47 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
       CurvedAnimation(
           parent: controller,
           curve: const Interval(
+            0.0,
             0.75,
-            1,
             curve: Curves.easeOut,
           )
           //Curves.easeInOut,
           ),
     );
 
+    opacidadOut = Tween(begin: 0.1, end: 1.0).animate(
+      CurvedAnimation(
+          parent: controller,
+          curve: const Interval(
+            0.75,
+            1.0,
+            curve: Curves.easeOut,
+          )
+          //Curves.easeInOut,
+          ),
+    );
+
+    moverDerecha = Tween(begin: 0.0, end: 200.0).animate(
+      //controller,
+      CurvedAnimation(
+        parent: controller,
+        curve: Curves.easeOut,
+      ),
+    );
+
+    agrandar = Tween(begin: 0.0, end: 2.0).animate(
+      //controller,
+      CurvedAnimation(
+        parent: controller,
+        curve: Curves.easeOut,
+      ),
+    );
+
     controller.addListener(() {
-      print('Status:  ${controller.status}');
+      // print('Status:  ${controller.status}');
       if (controller.status == AnimationStatus.completed) {
-        controller.reverse();
+        //controller.reverse();
+        controller.reset();
       }
       // else if (controller.status == AnimationStatus.dismissed) {
       //   controller.forward();
@@ -80,14 +112,22 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
       child: _Rectangulo(),
       animation: controller,
       builder: (BuildContext context, Widget? childRectangulo) {
+        // print('Opacidad:  ${opacidad.status}');
+        // print('Rotacion:  ${rotacion.status}');
         //print('rotacion: ' + rotacion.value.toString());
-        return Transform.rotate(
-          angle: rotacion.value,
-          child: Opacity(
-            opacity: opacidad.value,
-            child: childRectangulo,
+        return Transform.translate(
+          offset: Offset(moverDerecha.value, 0),
+          child: Transform.rotate(
+            angle: rotacion.value,
+            child: Opacity(
+              opacity: opacidad.value - opacidadOut.value,
+              child: Transform.scale(
+                scale: agrandar.value,
+                child: childRectangulo,
+              ),
+            ),
+            //    child: _Rectangulo(),
           ),
-          //    child: _Rectangulo(),
         );
       },
     );
@@ -98,8 +138,8 @@ class _Rectangulo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100,
-      height: 100,
+      width: 70,
+      height: 70,
       decoration: BoxDecoration(color: Colors.blue.shade700),
     );
   }
