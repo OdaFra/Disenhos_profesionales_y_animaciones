@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class CircularProgressPage extends StatefulWidget {
@@ -8,18 +9,62 @@ class CircularProgressPage extends StatefulWidget {
   State<CircularProgressPage> createState() => _CircularProgressPageState();
 }
 
-class _CircularProgressPageState extends State<CircularProgressPage> {
+class _CircularProgressPageState extends State<CircularProgressPage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  double porcentaje = 0.0;
+  double nuevoPorcentaje = 0.0;
+  @override
+  void initState() {
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+
+    controller.addListener(() {
+      //print('Valor controller: ${controller.value}');
+      setState(() {
+        porcentaje = lerpDouble(porcentaje, nuevoPorcentaje, controller.value)!;
+      });
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.pink,
+        child: const Icon(
+          Icons.refresh_outlined,
+        ),
+        onPressed: () {
+          porcentaje = nuevoPorcentaje;
+          nuevoPorcentaje += 10;
+          if (nuevoPorcentaje > 100) {
+            nuevoPorcentaje = 0;
+            porcentaje = 0;
+          }
+          controller.forward(from: 0.0);
+
+          setState(() {});
+        },
+      ),
       body: Center(
         child: Container(
           // color: Colors.red,
-          padding: EdgeInsets.all(5.0),
+          padding: const EdgeInsets.all(5.0),
           width: 300,
           height: 300,
           child: CustomPaint(
-            painter: _MiRadialProgess(50),
+            painter: _MiRadialProgess(porcentaje),
           ),
         ),
       ),
@@ -28,6 +73,7 @@ class _CircularProgressPageState extends State<CircularProgressPage> {
 }
 
 class _MiRadialProgess extends CustomPainter {
+  // ignore: prefer_typing_uninitialized_variables
   final porcentaje;
   _MiRadialProgess(this.porcentaje);
 
