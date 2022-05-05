@@ -1,11 +1,20 @@
+// ignore: file_names
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class RadialProgress extends StatefulWidget {
   final porcentaje;
+  final Color colorPrimario;
+  final Color colorSecundario;
+  final double grosorSecundario;
+  final double grosorPrimario;
 
-  const RadialProgress({this.porcentaje});
+  const RadialProgress(
+      {required this.porcentaje,
+      this.colorPrimario = Colors.indigo,
+      this.colorSecundario = Colors.grey,
+      this.grosorSecundario = 4,
+      this.grosorPrimario = 5});
 
   @override
   State<RadialProgress> createState() => _RadialProgressState();
@@ -27,7 +36,6 @@ class _RadialProgressState extends State<RadialProgress>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     controller.dispose();
     super.dispose();
   }
@@ -46,9 +54,12 @@ class _RadialProgressState extends State<RadialProgress>
             height: double.infinity,
             child: CustomPaint(
               painter: _MiRadialProgess(
-                (widget.porcentaje - diferenciaAnimar) +
-                    (diferenciaAnimar * controller.value),
-              ),
+                  (widget.porcentaje - diferenciaAnimar) +
+                      (diferenciaAnimar * controller.value),
+                  widget.colorPrimario,
+                  widget.colorSecundario,
+                  widget.grosorSecundario,
+                  widget.grosorPrimario),
             ),
           );
         });
@@ -56,17 +67,29 @@ class _RadialProgressState extends State<RadialProgress>
 }
 
 class _MiRadialProgess extends CustomPainter {
-  // ignore: prefer_typing_uninitialized_variables
   final porcentaje;
-  _MiRadialProgess(this.porcentaje);
+  final Color colorPrimario;
+  final Color colorSecundario;
+  final double grosorSecundario;
+  final double grosorPrimario;
+  _MiRadialProgess(this.porcentaje, this.colorPrimario, this.colorSecundario,
+      this.grosorSecundario, this.grosorPrimario);
 
   @override
   void paint(Canvas canvas, Size size) {
-    // TODO: implement paint
+
+    final Rect rect =Rect.fromCircle(center: const Offset(0,0), radius: 180);
+
+    const Gradient gradiente = LinearGradient(colors: <Color>[
+      Color(0xffc012FF),
+      Color(0xff6D05e8),
+      Colors.red
+    ]);
 
     final paint = Paint()
-      ..strokeWidth = 5
-      ..color = Colors.grey
+      ..strokeWidth = grosorSecundario
+      ..color = colorSecundario
+     // ..shader = gradiente.createShader(rect)
       ..style = PaintingStyle.stroke;
 
     final Offset center = Offset(size.width * 0.5, size.height / 2);
@@ -76,8 +99,9 @@ class _MiRadialProgess extends CustomPainter {
 
     //Arco
     final paintArco = Paint()
-      ..strokeWidth = 10
-      ..color = Colors.pink
+      ..strokeWidth = grosorPrimario
+      ..color = colorPrimario
+      ..strokeCap =StrokeCap.round
       ..style = PaintingStyle.stroke;
 
     //Parte que se debera llenando

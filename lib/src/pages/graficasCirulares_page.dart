@@ -9,7 +9,7 @@ class GraficaCircularesPage extends StatefulWidget {
 }
 
 class _GraficaCircularesPageState extends State<GraficaCircularesPage> {
-  double porcentaje = 0.0;
+  double porcentaje = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,22 +17,92 @@ class _GraficaCircularesPageState extends State<GraficaCircularesPage> {
         child: const Icon(Icons.refresh),
         onPressed: () {
           setState(() {
-            porcentaje += 10.0;
-            if (porcentaje > 100.0) {
-              porcentaje = 0.0;
+            porcentaje += 10;
+            if (porcentaje > 100) {
+              porcentaje = 0;
             }
           });
         },
       ),
-      body: Center(
-          child: Container(
-        width: 300,
-        height: 300,
-        child: RadialProgress(
-          porcentaje: porcentaje,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomRadialProgress(
+                porcentaje: porcentaje,
+                color: Colors.blue,
+              ),
+              CustomRadialProgress(
+                porcentaje: porcentaje,
+                color: Colors.purple,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomRadialProgress(
+                porcentaje: porcentaje,
+                color: Colors.red,
+              ),
+              CustomRadialProgress(
+                porcentaje: porcentaje,
+                color: Colors.green,
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class CustomRadialProgress extends StatelessWidget {
+  const CustomRadialProgress({required this.porcentaje, required this.color});
+
+  final Color color;
+  final double porcentaje;
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Stack(
+      children: [
+        Positioned(
+          left: size.height * 0.085,
+          top: size.width * 0.20,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '$porcentaje %',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            ],
+          ),
         ),
-        //child: Text('$porcentaje %', style: const TextStyle(fontSize: 50)),
-      )),
+        const SizedBox(
+          height: 5,
+        ),
+        SizedBox(
+          width: 180,
+          height: 180,
+          child: RadialProgress(
+            porcentaje: porcentaje,
+            colorPrimario: color,
+            colorSecundario: Colors.grey,
+            grosorSecundario: 8,
+            grosorPrimario: 12,
+          ),
+          //child: Text('$porcentaje %', style: const TextStyle(fontSize: 50)),
+        ),
+      ],
     );
   }
 }
