@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:disenos_app/src/widgets/radialProgress.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class _GraficaCircularesPageState extends State<GraficaCircularesPage> {
         child: const Icon(Icons.refresh),
         onPressed: () {
           setState(() {
-            porcentaje += 10;
+            porcentaje += 5;
             if (porcentaje > 100) {
               porcentaje = 0;
             }
