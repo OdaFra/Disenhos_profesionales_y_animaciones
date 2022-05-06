@@ -2,34 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/slider_model.dart';
 
-
-
-
 class Slideshow extends StatelessWidget {
-
   final List<Widget> slides;
+  final bool puntosArriba;
+  final Color colorPrimario;
+  final Color colorSecundario;
 
-   Slideshow({required  this.slides});
+  // ignore: use_key_in_widget_constructors
+  const Slideshow(
+      {required this.slides,
+      this.puntosArriba = false,
+      this.colorPrimario = Colors.blue,
+      this.colorSecundario = Colors.grey});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => SliderModel(),
-      child: Center(
-          child: Column(
-        children:  [
-          Expanded(
-            child: _Slides(this.slides ),
-          ),
-          _Dots()
-        ],
-      )),
+      child: SafeArea(
+        child: Center(
+            child: Column(
+          children: [
+            if (puntosArriba) _Dots(slides.length, this.colorPrimario, this.colorSecundario),
+            Expanded(child: _Slides(slides)),
+            if (!puntosArriba) _Dots(slides.length, this.colorPrimario, this.colorSecundario),
+          ],
+        )),
+      ),
     );
   }
 }
 
 class _Slides extends StatefulWidget {
-  final List<Widget>slides;
+  final List<Widget> slides;
   const _Slides(this.slides);
 
   @override
@@ -46,8 +51,6 @@ class _SlidesState extends State<_Slides> {
       //Actualizar la instanacia de mi clase o provider (sliderModel)
       Provider.of<SliderModel>(context, listen: false).currentPage =
           pageViewController.page!;
-
-
     });
     super.initState();
   }
@@ -62,9 +65,8 @@ class _SlidesState extends State<_Slides> {
   Widget build(BuildContext context) {
     return Container(
       child: PageView(
-
         controller: pageViewController,
-        // children: 
+        // children:
         // const [
         //   _Slide('assets/svgs/slide-1.svg'),
         //   _Slide('assets/svgs/slide-2.svg'),
@@ -77,7 +79,11 @@ class _SlidesState extends State<_Slides> {
 }
 
 class _Dots extends StatelessWidget {
-  const _Dots({Key? key}) : super(key: key);
+  final int totalSlides;
+  final Color colorPrimario;
+  final Color colorSecundario;
+
+  const _Dots(this.totalSlides, this.colorPrimario, this.colorSecundario);
 
   @override
   Widget build(BuildContext context) {
@@ -86,11 +92,15 @@ class _Dots extends StatelessWidget {
       height: 70,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          _Dot(0),
-          _Dot(1),
-          _Dot(2),
-        ],
+        // children: const [
+        //   _Dot(0),
+        //   _Dot(1),
+        //   _Dot(2),
+        // ],
+        children: List.generate(
+          this.totalSlides,
+          (i) => _Dot(i, this.colorPrimario, this.colorSecundario),
+        ),
       ),
     );
   }
@@ -98,8 +108,12 @@ class _Dots extends StatelessWidget {
 
 class _Dot extends StatelessWidget {
   final int index;
+  final Color colorPrimario;
+  final Color colorSecundario;
   const _Dot(
     this.index,
+    this.colorPrimario,
+    this.colorSecundario,
   );
 
   @override
@@ -112,8 +126,8 @@ class _Dot extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
         color: (pageViewIndex >= index - 0.5 && pageViewIndex < index + 0.5)
-            ? Colors.blue
-            : Colors.grey,
+            ? colorPrimario
+            : colorSecundario,
         shape: BoxShape.circle,
       ),
     );
