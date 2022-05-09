@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CuadradoAnimadoPage extends StatelessWidget {
-  const CuadradoAnimadoPage({Key? key}) : super(key: key);
+  const CuadradoAnimadoPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class CuadradoAnimadoPage extends StatelessWidget {
 
 class _CuadradoAnimado extends StatefulWidget {
   const _CuadradoAnimado({
-    Key? key,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -22,11 +22,11 @@ class _CuadradoAnimado extends StatefulWidget {
 
 class _CuadradoAnimadoState extends State<_CuadradoAnimado>
     with SingleTickerProviderStateMixin {
-  late AnimationController controller;
-  late Animation<double> moverDerecha;
-  late Animation<double> moverArriba;
-  late Animation<double> moverIzquierda;
-  late Animation<double> moverAbajo;
+   AnimationController controller;
+   Animation<double> moverDerecha;
+   Animation<double> moverArriba;
+   Animation<double> moverIzquierda;
+   Animation<double> moverAbajo;
 
   @override
   void initState() {
@@ -103,7 +103,7 @@ class _CuadradoAnimadoState extends State<_CuadradoAnimado>
     return AnimatedBuilder(
         child: _Rectangulo(),
         animation: controller,
-        builder: (BuildContext context, Widget? child) {
+        builder: (BuildContext context, Widget child) {
           return Transform.translate(
             offset: Offset(
               moverDerecha.value + moverIzquierda.value,

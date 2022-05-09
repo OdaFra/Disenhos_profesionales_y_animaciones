@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as Math;
 
 class AnimacionesPage extends StatelessWidget {
-  const AnimacionesPage({Key? key}) : super(key: key);
+  const AnimacionesPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +21,12 @@ class CuadradoAnimado extends StatefulWidget {
 
 class _CuadradoAnimadoState extends State<CuadradoAnimado>
     with SingleTickerProviderStateMixin {
-  late AnimationController controller;
-  late Animation<double> rotacion;
-  late Animation<double> opacidad;
-  late Animation<double> opacidadOut;
-  late Animation<double> moverDerecha;
-  late Animation<double> agrandar;
+   AnimationController controller;
+   Animation<double> rotacion;
+   Animation<double> opacidad;
+   Animation<double> opacidadOut;
+   Animation<double> moverDerecha;
+   Animation<double> agrandar;
 
   @override
   void initState() {
@@ -111,7 +111,7 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
     return AnimatedBuilder(
       child: _Rectangulo(),
       animation: controller,
-      builder: (BuildContext context, Widget? childRectangulo) {
+      builder: (BuildContext context, Widget childRectangulo) {
         // print('Opacidad:  ${opacidad.status}');
         // print('Rotacion:  ${rotacion.status}');
         //print('rotacion: ' + rotacion.value.toString());

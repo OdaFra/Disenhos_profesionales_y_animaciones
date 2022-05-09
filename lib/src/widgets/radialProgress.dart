@@ -10,7 +10,7 @@ class RadialProgress extends StatefulWidget {
   final double grosorPrimario;
 
   const RadialProgress(
-      {required this.porcentaje,
+      { this.porcentaje,
       this.colorPrimario = Colors.indigo,
       this.colorSecundario = Colors.grey,
       this.grosorSecundario = 4,
@@ -22,8 +22,8 @@ class RadialProgress extends StatefulWidget {
 
 class _RadialProgressState extends State<RadialProgress>
     with SingleTickerProviderStateMixin {
-  late AnimationController controller;
-  late double porcentajeAnterior;
+   AnimationController controller;
+   double porcentajeAnterior;
 
   @override
   void initState() {
@@ -47,7 +47,7 @@ class _RadialProgressState extends State<RadialProgress>
     porcentajeAnterior = widget.porcentaje;
     return AnimatedBuilder(
         animation: controller,
-        builder: (BuildContext context, Widget? child) {
+        builder: (BuildContext context, Widget child) {
           return Container(
             padding: const EdgeInsets.all(10),
             width: double.infinity,

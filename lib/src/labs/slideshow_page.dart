@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class SlideShowPage extends StatelessWidget {
-  const SlideShowPage({Key? key}) : super(key: key);
+  const SlideShowPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class SlideShowPage extends StatelessWidget {
 // SvgPicture.asset('assets/svgs/slide-5.svg')
 
 class _Slides extends StatefulWidget {
-  const _Slides({Key? key}) : super(key: key);
+  const _Slides({Key key}) : super(key: key);
 
   @override
   State<_Slides> createState() => _SlidesState();
@@ -43,7 +43,7 @@ class _SlidesState extends State<_Slides> {
       print('Pagina actual:  ${pageViewController.page}');
       //Actualizar la instanacia de mi clase o provider (sliderModel)
       Provider.of<SliderModel>(context, listen: false).currentPage =
-          pageViewController.page!;
+          pageViewController.page;
     });
     super.initState();
   }
@@ -70,7 +70,7 @@ class _SlidesState extends State<_Slides> {
 }
 
 class _Dots extends StatelessWidget {
-  const _Dots({Key? key}) : super(key: key);
+  const _Dots({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

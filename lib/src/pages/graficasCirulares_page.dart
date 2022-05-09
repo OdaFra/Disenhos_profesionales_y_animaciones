@@ -3,7 +3,7 @@ import 'package:disenos_app/src/widgets/radialProgress.dart';
 import 'package:flutter/material.dart';
 
 class GraficaCircularesPage extends StatefulWidget {
-  const GraficaCircularesPage({Key? key}) : super(key: key);
+  const GraficaCircularesPage({Key key}) : super(key: key);
 
   @override
   State<GraficaCircularesPage> createState() => _GraficaCircularesPageState();
@@ -61,7 +61,7 @@ class _GraficaCircularesPageState extends State<GraficaCircularesPage> {
 }
 
 class CustomRadialProgress extends StatelessWidget {
-  const CustomRadialProgress({required this.porcentaje, required this.color});
+  const CustomRadialProgress({ this.porcentaje,  this.color});
 
   final Color color;
   final double porcentaje;

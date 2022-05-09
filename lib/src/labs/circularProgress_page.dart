@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class CircularProgressPage extends StatefulWidget {
-  const CircularProgressPage({Key? key}) : super(key: key);
+  
 
   @override
   State<CircularProgressPage> createState() => _CircularProgressPageState();
@@ -11,7 +11,7 @@ class CircularProgressPage extends StatefulWidget {
 
 class _CircularProgressPageState extends State<CircularProgressPage>
     with SingleTickerProviderStateMixin {
-  late AnimationController controller;
+   AnimationController controller;
   double porcentaje = 0.0;
   double nuevoPorcentaje = 0.0;
   @override
@@ -24,7 +24,7 @@ class _CircularProgressPageState extends State<CircularProgressPage>
     controller.addListener(() {
       //print('Valor controller: ${controller.value}');
       setState(() {
-        porcentaje = lerpDouble(porcentaje, nuevoPorcentaje, controller.value)!;
+        porcentaje = lerpDouble(porcentaje, nuevoPorcentaje, controller.value);
       });
     });
 
