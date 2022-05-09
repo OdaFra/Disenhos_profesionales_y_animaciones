@@ -11,6 +11,8 @@ class SlideshowPage extends StatelessWidget {
     return Scaffold(
       // backgroundColor: Colors.indigo,
       body: Slideshow(
+          bulletPrimario:15,
+          bulletSecundario:12,
      // puntosArriba: false,
          colorPrimario:const Color(0xffFF5A7E),
          //colorSecundario: Colors.blue.shade50,

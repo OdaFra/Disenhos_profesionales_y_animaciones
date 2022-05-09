@@ -8,13 +8,18 @@ class Slideshow extends StatelessWidget {
   final bool puntosArriba;
   final Color colorPrimario;
   final Color colorSecundario;
+  final double bulletPrimario;
+  final double bulletSecundario;
 
   // ignore: use_key_in_widget_constructors
-  const Slideshow(
-      { @required this.slides,
-      this.puntosArriba = false,
-      this.colorPrimario = Colors.blue,
-      this.colorSecundario = Colors.grey});
+  const Slideshow({
+    @required this.slides,
+    this.puntosArriba = false,
+    this.colorPrimario = Colors.blue,
+    this.colorSecundario = Colors.grey,
+    this.bulletPrimario = 12.0,
+    this.bulletSecundario = 12.0,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +33,10 @@ class Slideshow extends StatelessWidget {
                     colorPrimario;
                 Provider.of<_SliderShowModel>(context).colorSecundario =
                     colorSecundario;
+                Provider.of<_SliderShowModel>(context).bulletPrimario =
+                    bulletPrimario;
+                Provider.of<_SliderShowModel>(context).bulletSecundario =
+                    bulletSecundario;
 
                 return _CrearEstructuraSlideShow(
                     puntosArriba: puntosArriba, slides: slides);
@@ -40,9 +49,8 @@ class Slideshow extends StatelessWidget {
 
 class _CrearEstructuraSlideShow extends StatelessWidget {
   const _CrearEstructuraSlideShow({
-    
-     this.puntosArriba,
-     this.slides,
+    this.puntosArriba,
+    this.slides,
   });
 
   final bool puntosArriba;
@@ -154,16 +162,31 @@ class _Dot extends StatelessWidget {
     //final pageViewIndex = Provider.of<_SliderShowModel>(context).currentPage;
     final sShowModel = Provider.of<_SliderShowModel>(context);
 
+    double tamano;
+    Color color;
+
+    if (sShowModel.currentPage >= index - 0.5 &&
+           sShowModel.currentPage < index + 0.5){
+tamano = sShowModel.bulletPrimario;
+color = sShowModel.colorPrimario;
+
+           }else{
+            tamano = sShowModel.bulletSecundario;
+            color = sShowModel.colorSecundario;
+           }
+
+
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
-      width: 12,
-      height: 12,
+      width: tamano,
+      height: tamano,
       margin: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
-        color: (sShowModel.currentPage >= index - 0.5 &&
-                sShowModel.currentPage < index + 0.5)
-            ? sShowModel.colorPrimario
-            : sShowModel.colorSecundario,
+        color: color,
+        // (sShowModel.currentPage >= index - 0.5 &&
+        //         sShowModel.currentPage < index + 0.5)
+        //     ? sShowModel.colorPrimario
+        //     : sShowModel.colorSecundario,
         shape: BoxShape.circle,
       ),
     );
@@ -191,6 +214,8 @@ class _SliderShowModel with ChangeNotifier {
   double _currentPage = 0;
   Color _colorPrimario = Colors.blue;
   Color _colorSecundario = Colors.grey;
+  double _bulletPrimario = 12;
+  double _bulletSecundario = 12;
 
   double get currentPage => this._currentPage;
 
@@ -202,12 +227,24 @@ class _SliderShowModel with ChangeNotifier {
   Color get colorPrimario => this._colorPrimario;
   set colorPrimario(Color color) {
     this._colorPrimario = color;
-    notifyListeners();
+    // notifyListeners();
   }
 
   Color get colorSecundario => this._colorSecundario;
   set colorSecundario(Color color) {
     this._colorSecundario = color;
-    notifyListeners();
+    //notifyListeners();
+  }
+
+  double get bulletPrimario => this._bulletPrimario;
+  set bulletPrimario(double tamano) {
+    this._bulletPrimario = tamano;
+    //notifyListeners();
+  }
+
+  double get bulletSecundario => this._bulletSecundario;
+  set bulletSecundario(double tamano) {
+    this._bulletSecundario = tamano;
+    //notifyListeners();
   }
 }
