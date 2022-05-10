@@ -166,19 +166,18 @@ class _Dot extends StatelessWidget {
     Color color;
 
     if (sShowModel.currentPage >= index - 0.5 &&
-           sShowModel.currentPage < index + 0.5){
-tamano = sShowModel.bulletPrimario;
-color = sShowModel.colorPrimario;
-
-           }else{
-            tamano = sShowModel.bulletSecundario;
-            color = sShowModel.colorSecundario;
-           }
-
+        sShowModel.currentPage < index + 0.5) {
+      tamano = sShowModel.bulletPrimario;
+      color = sShowModel.colorPrimario;
+    } else {
+      tamano = sShowModel.bulletSecundario;
+      color = sShowModel.colorSecundario;
+    }
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       width: tamano,
+      
       height: tamano,
       margin: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
