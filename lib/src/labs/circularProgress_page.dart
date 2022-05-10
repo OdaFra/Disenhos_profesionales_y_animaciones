@@ -1,7 +1,9 @@
+// ignore: file_names
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
+// ignore: use_key_in_widget_constructors
 class CircularProgressPage extends StatefulWidget {
   
 
@@ -79,7 +81,6 @@ class _MiRadialProgess extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // TODO: implement paint
 
     final paint = new Paint()
       ..strokeWidth = 5
