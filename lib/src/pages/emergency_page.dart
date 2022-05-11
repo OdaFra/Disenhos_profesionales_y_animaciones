@@ -1,24 +1,123 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:disenos_app/src/widgets/button_gordo.dart';
 import 'package:disenos_app/src/widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+class ItemBoton {
+  final IconData icon;
+  final String texto;
+  final Color color1;
+  final Color color2;
+
+  ItemBoton(this.icon, this.texto, this.color1, this.color2);
+}
 
 class EmergencyPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final items = <ItemBoton>[
+      // ignore: deprecated_member_use, unnecessary_new
+      new ItemBoton(FontAwesomeIcons.carCrash, 'Motor Accident',
+          const Color(0xff6989F5), const Color(0xff906EF5)),
+      new ItemBoton(FontAwesomeIcons.plus, 'Medical Emergency',
+          const Color(0xff66A9F2), const Color(0xff536CF6)),
+      new ItemBoton(FontAwesomeIcons.theaterMasks, 'Theft / Harrasement',
+          const Color(0xffF2D572), const Color(0xffE06AA3)),
+      new ItemBoton(FontAwesomeIcons.biking, 'Awards', const Color(0xff317183),
+          const Color(0xff46997D)),
+      new ItemBoton(FontAwesomeIcons.carCrash, 'Motor Accident',
+          const Color(0xff6989F5), const Color(0xff906EF5)),
+      new ItemBoton(FontAwesomeIcons.plus, 'Medical Emergency',
+          const Color(0xff66A9F2), const Color(0xff536CF6)),
+      new ItemBoton(FontAwesomeIcons.theaterMasks, 'Theft / Harrasement',
+          const Color(0xffF2D572), const Color(0xffE06AA3)),
+      new ItemBoton(FontAwesomeIcons.biking, 'Awards', const Color(0xff317183),
+          const Color(0xff46997D)),
+      new ItemBoton(FontAwesomeIcons.carCrash, 'Motor Accident',
+          const Color(0xff6989F5), const Color(0xff906EF5)),
+      new ItemBoton(FontAwesomeIcons.plus, 'Medical Emergency',
+          const Color(0xff66A9F2), const Color(0xff536CF6)),
+      new ItemBoton(FontAwesomeIcons.theaterMasks, 'Theft / Harrasement',
+          const Color(0xffF2D572), const Color(0xffE06AA3)),
+      new ItemBoton(FontAwesomeIcons.biking, 'Awards', const Color(0xff317183),
+          const Color(0xff46997D)),
+    ];
+
+  List<Widget> itemMap = items.map((item) =>FadeInLeft(
+    duration: Duration(milliseconds: 300),
+    child: ButtonGordoPage(
+      icon:item.icon,
+      color1: item.color1,
+      color2: item.color2,
+      texto: item.texto,
+      onPress: (){print('Hola Mundo');},
+    ),
+  ) ,).toList();
+
+    return Scaffold(
+        // backgroundColor: Colors.red,
+        body: Stack(
+      children: [
+        Container(
+          margin: const EdgeInsets.only(top: 200),
+          child: ListView(
+            physics: BouncingScrollPhysics(),
+            children: [
+              const SizedBox(
+                height: 80,
+              ),
+              ...itemMap
+            ],
+          ),
+        ),
+        _EncabezadoIconHeader()
+      ],
+    ));
+  }
+}
+
+class _EncabezadoIconHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      // backgroundColor: Colors.red,
-      body:Center(child: ButtonGordoPage(
-        texto: 'Motor Accident',
-        onPress: (){ print('Click!!!');},
-        icon: FontAwesomeIcons.carCrash,
-        color1: Color(0xff6989f5),
-             color2:Color(0xff906ef5)
+    return  Stack(
+      children: [
+       const IconHeader(
+          icon: FontAwesomeIcons.plus,
+          titulo: 'Asistencia Medica',
+          subtitulo: 'Haz solicitado',
+          color2: Color(0xff6989F5),
+          color1: const Color(0xff536CF6),
+        ),
+        Positioned(
+          right: 0,
+          top: 45,
+          child:RawMaterialButton(
+            onPressed: (){},
+            shape: CircleBorder(),
+            padding: EdgeInsets.all(15.0),
+            child: FaIcon(FontAwesomeIcons.ellipsisV, color: Colors.white,)) )
+      ],
+    );
+  }
+}
 
-      ))
-   );
+class _ButtonGordoTemp extends StatelessWidget {
+  const _ButtonGordoTemp({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ButtonGordoPage(
+        texto: 'Motor Accident',
+        onPress: () {
+          print('Click!!!');
+        },
+        icon: FontAwesomeIcons.carCrash,
+        color1: const Color(0xff6989f5),
+        color2: const Color(0xff906ef5));
   }
 }
 
