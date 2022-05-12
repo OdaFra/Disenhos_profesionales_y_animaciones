@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:disenos_app/src/pages/emergency_page.dart';
+
+import 'src/pages/sliverList_page.dart';
+//import 'package:disenos_app/src/pages/emergency_page.dart';
 //import 'package:disenos_app/src/pages/pinterest_page.dart';
 //import 'package:disenos_app/src/pages/slideShow_page.dart';
 //import 'package:disenos_app/src/pages/graficasCirulares_page.dart';
@@ -18,6 +20,6 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
         title: 'Diseños APP',
         debugShowCheckedModeBanner: false,
-        home: EmergencyPage());
+        home: SliverListPage());
   }
 }
