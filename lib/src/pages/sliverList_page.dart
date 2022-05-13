@@ -42,7 +42,7 @@ class _ButtonNewList extends StatelessWidget {
 }
 
 class _MainScroll extends StatelessWidget {
-  final items = [
+  final items = const [
     _ListItem('Orange', Color(0xffF08F66)),
     _ListItem('Family', Color(0xffF2A38A)),
     _ListItem('Subscriptions', Color(0xffF7CDD5)),
