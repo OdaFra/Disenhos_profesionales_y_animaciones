@@ -1,13 +1,14 @@
+import 'package:disenos_app/src/pages/launcher_page.dart';
 import 'package:flutter/material.dart';
 
-import 'src/pages/sliverList_page.dart';
-import 'package:disenos_app/src/pages/emergency_page.dart';
-import 'package:disenos_app/src/pages/pinterest_page.dart';
-import 'package:disenos_app/src/pages/slideShow_page.dart';
-import 'package:disenos_app/src/pages/graficasCirulares_page.dart';
-import 'package:disenos_app/src/labs/slideshow_page.dart';
-import 'package:disenos_app/src/labs/circularProgress_page.dart';
-import 'package:disenos_app/src/retos/cuadradoAnimado_page.dart';
+// import 'src/pages/sliverList_page.dart';
+// import 'package:disenos_app/src/pages/emergency_page.dart';
+// import 'package:disenos_app/src/pages/pinterest_page.dart';
+// import 'package:disenos_app/src/pages/slideShow_page.dart';
+// import 'package:disenos_app/src/pages/graficasCirulares_page.dart';
+// import 'package:disenos_app/src/labs/slideshow_page.dart';
+// import 'package:disenos_app/src/labs/circularProgress_page.dart';
+// import 'package:disenos_app/src/retos/cuadradoAnimado_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,6 +21,6 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
         title: 'Diseños APP',
         debugShowCheckedModeBanner: false,
-        home: SliverListPage());
+        home: LauncherPage());
   }
 }
