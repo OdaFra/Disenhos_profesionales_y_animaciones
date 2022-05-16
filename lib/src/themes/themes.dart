@@ -24,7 +24,9 @@ ThemeChanger(int theme){
       case 2:
       _darKTheme = true;
       _customTheme=false;
-      _currentTheme=ThemeData.dark();
+      _currentTheme=ThemeData.dark().copyWith(
+        accentColor: Colors.pink
+      );
       break;
 
       
@@ -47,7 +49,9 @@ ThemeChanger(int theme){
     _darKTheme=value;
 
     if(value){
-      _currentTheme = ThemeData.dark();
+      _currentTheme = ThemeData.dark().copyWith(
+        accentColor: Colors.pink
+      );
     }else{
       _currentTheme=ThemeData.light();
     }
@@ -60,7 +64,16 @@ ThemeChanger(int theme){
     _customTheme=value;
     
     if(value){
-      _currentTheme = ThemeData.light();
+      _currentTheme = ThemeData.dark().copyWith(
+accentColor: Color(0xff48a0eb),
+  primaryColorLight:Colors.white,
+scaffoldBackgroundColor: Color(0xff16202b),
+  textTheme:  const TextTheme(
+    bodyText1: TextStyle(color: Colors.white)
+  )
+  //textTheme.bodyText1.color:
+
+      );
     }else{
       _currentTheme=ThemeData.light();
     }
