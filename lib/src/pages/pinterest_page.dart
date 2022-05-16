@@ -1,5 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:disenos_app/src/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
@@ -27,8 +28,9 @@ class _PinterestMenuLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final widthPantalla = MediaQuery.of(context).size.width;
-
    final mostrar= Provider.of<_MenuModel>(context).mostrar;
+   final appTheme = Provider.of<ThemeChanger  >(context).currentTheme;
+
     return Positioned(
         bottom: 30,
         // ignore: sized_box_for_whitespace
@@ -37,7 +39,8 @@ class _PinterestMenuLocation extends StatelessWidget {
           child:  Align(
             child: PinterestMenu(
               mostrar:mostrar,
-              // activeColor: Colors.indigo,
+              backgroundColor: appTheme.scaffoldBackgroundColor,
+              activeColor: appTheme.accentColor,
               // inactiveColor: Colors.blueGrey,
               items: [
                 PinterestButton(

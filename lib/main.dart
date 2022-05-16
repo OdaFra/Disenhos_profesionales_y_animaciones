@@ -1,5 +1,7 @@
 import 'package:disenos_app/src/pages/launcher_page.dart';
+import 'package:disenos_app/src/themes/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // import 'src/pages/sliverList_page.dart';
 // import 'package:disenos_app/src/pages/emergency_page.dart';
@@ -11,14 +13,21 @@ import 'package:flutter/material.dart';
 // import 'package:disenos_app/src/retos/cuadradoAnimado_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeChanger(2),
+      child: MyApp(),
+    ),
+  );
 }
 
 // ignore: use_key_in_widget_constructors
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    final currentTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    return MaterialApp(
+     theme: currentTheme,
         title: 'Diseños APP',
         debugShowCheckedModeBanner: false,
         home: LauncherPage());
