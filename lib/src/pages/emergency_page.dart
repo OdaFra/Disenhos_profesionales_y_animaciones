@@ -16,74 +16,89 @@ class ItemBoton {
 class EmergencyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    bool isLarge;
+    if (MediaQuery.of(context).size.height > 550) {
+      isLarge = true;
+    } else {
+      isLarge = false;
+    }
+
     final items = <ItemBoton>[
       // ignore: deprecated_member_use, unnecessary_new
-       ItemBoton(FontAwesomeIcons.carCrash, 'Motor Accident',
+      ItemBoton(FontAwesomeIcons.carCrash, 'Motor Accident',
           const Color(0xff6989F5), const Color(0xff906EF5)),
-       ItemBoton(FontAwesomeIcons.plus, 'Medical Emergency',
+      ItemBoton(FontAwesomeIcons.plus, 'Medical Emergency',
           const Color(0xff66A9F2), const Color(0xff536CF6)),
-      ItemBoton(FontAwesomeIcons.theaterMasks, 'Theft / Harrasement',
+      ItemBoton(FontAwesomeIcons.masksTheater, 'Theft / Harrasement',
           const Color(0xffF2D572), const Color(0xffE06AA3)),
-       ItemBoton(FontAwesomeIcons.biking, 'Awards', const Color(0xff317183),
-          const Color(0xff46997D)),
-       ItemBoton(FontAwesomeIcons.carCrash, 'Motor Accident',
+      ItemBoton(FontAwesomeIcons.personBiking, 'Awards',
+          const Color(0xff317183), const Color(0xff46997D)),
+      ItemBoton(FontAwesomeIcons.carBurst, 'Motor Accident',
           const Color(0xff6989F5), const Color(0xff906EF5)),
-       ItemBoton(FontAwesomeIcons.plus, 'Medical Emergency',
+      ItemBoton(FontAwesomeIcons.plus, 'Medical Emergency',
           const Color(0xff66A9F2), const Color(0xff536CF6)),
-       ItemBoton(FontAwesomeIcons.theaterMasks, 'Theft / Harrasement',
+      ItemBoton(FontAwesomeIcons.masksTheater, 'Theft / Harrasement',
           const Color(0xffF2D572), const Color(0xffE06AA3)),
-       ItemBoton(FontAwesomeIcons.biking, 'Awards', const Color(0xff317183),
-          const Color(0xff46997D)),
-       ItemBoton(FontAwesomeIcons.carCrash, 'Motor Accident',
+      ItemBoton(FontAwesomeIcons.personBiking, 'Awards',
+          const Color(0xff317183), const Color(0xff46997D)),
+      ItemBoton(FontAwesomeIcons.carBurst, 'Motor Accident',
           const Color(0xff6989F5), const Color(0xff906EF5)),
-       ItemBoton(FontAwesomeIcons.plus, 'Medical Emergency',
+      ItemBoton(FontAwesomeIcons.plus, 'Medical Emergency',
           const Color(0xff66A9F2), const Color(0xff536CF6)),
-       ItemBoton(FontAwesomeIcons.theaterMasks, 'Theft / Harrasement',
+      ItemBoton(FontAwesomeIcons.masksTheater, 'Theft / Harrasement',
           const Color(0xffF2D572), const Color(0xffE06AA3)),
-       ItemBoton(FontAwesomeIcons.biking, 'Awards', const Color(0xff317183),
-          const Color(0xff46997D)),
+      ItemBoton(FontAwesomeIcons.personBiking, 'Awards',
+          const Color(0xff317183), const Color(0xff46997D)),
     ];
 
-  List<Widget> itemMap = items.map((item) =>FadeInLeft(
-    duration: const Duration(milliseconds: 300),
-    child: ButtonGordoPage(
-      icon:item.icon,
-      color1: item.color1,
-      color2: item.color2,
-      texto: item.texto,
-      onPress: (){print('Hola Mundo');},
-    ),
-  ) ,).toList();
+    List<Widget> itemMap = items
+        .map(
+          (item) => FadeInLeft(
+            duration: const Duration(milliseconds: 300),
+            child: ButtonGordoPage(
+              icon: item.icon,
+              color1: item.color1,
+              color2: item.color2,
+              texto: item.texto,
+              onPress: () {
+                print('Hola Mundo');
+              },
+            ),
+          ),
+        )
+        .toList();
 
     return Scaffold(
         // backgroundColor: Colors.red,
         body: Stack(
       children: [
         Container(
-          margin: const EdgeInsets.only(top: 200),
-          child: ListView(
-            physics: BouncingScrollPhysics(),
-            children: [
-              const SizedBox(
-                height: 80,
-              ),
-              ...itemMap
-            ],
+          margin: EdgeInsets.only(top: (isLarge) ? 220 : 10),
+          child: SafeArea(
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                if (isLarge)
+                  const SizedBox(
+                    height: 80,
+                  ),
+                ...itemMap
+              ],
+            ),
           ),
         ),
-        _EncabezadoIconHeader()
+        if (isLarge) _EncabezadoIconHeader()
       ],
     ));
   }
 }
 
 class _EncabezadoIconHeader extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    return  Stack(
+    return Stack(
       children: [
-       const IconHeader(
+        const IconHeader(
           icon: FontAwesomeIcons.plus,
           titulo: 'Asistencia Medica',
           subtitulo: 'Haz solicitado',
@@ -91,13 +106,16 @@ class _EncabezadoIconHeader extends StatelessWidget {
           color1: const Color(0xff536CF6),
         ),
         Positioned(
-          right: 0,
-          top: 45,
-          child:RawMaterialButton(
-            onPressed: (){},
-            shape: CircleBorder(),
-            padding: EdgeInsets.all(15.0),
-            child: FaIcon(FontAwesomeIcons.ellipsisV, color: Colors.white,)) )
+            right: 0,
+            top: 45,
+            child: RawMaterialButton(
+                onPressed: () {},
+                shape: CircleBorder(),
+                padding: EdgeInsets.all(15.0),
+                child: FaIcon(
+                  FontAwesomeIcons.ellipsisV,
+                  color: Colors.white,
+                )))
       ],
     );
   }
