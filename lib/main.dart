@@ -1,4 +1,5 @@
 import 'package:disenos_app/src/pages/launcher_page.dart';
+import 'package:disenos_app/src/pages/launcher_tablet_page.dart';
 import 'package:disenos_app/src/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,9 +28,22 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentTheme = Provider.of<ThemeChanger>(context).currentTheme;
     return MaterialApp(
-     theme: currentTheme,
-        title: 'Diseños APP',
-        debugShowCheckedModeBanner: false,
-        home: LauncherPage());
+      theme: currentTheme,
+      title: 'Diseños APP',
+      debugShowCheckedModeBanner: false,
+      home: //LauncherPage());
+          OrientationBuilder(
+        builder: (BuildContext context, Orientation orientation) {
+          // print('En que orientación estoy${orientation}');
+          // return LauncherPage();
+          final screenSize = MediaQuery.of(context).size;
+          if(screenSize.width > 500){
+          return LauncherTabletPage();
+          }else{
+            return LauncherPage();
+          }
+        },
+      ),
+    );
   }
 }

@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../routers/routers.dart';
 
-class LauncherPage extends StatelessWidget {
+class LauncherTabletPage extends StatelessWidget {
 
   
   @override
@@ -16,7 +16,7 @@ class LauncherPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: appBar.accentColor,
           centerTitle: true,
-          title: const Text('Diseños en Flutter - Telefono'),
+          title: const Text('Diseños en Flutter'),
         ),
         drawer: _MenuPrincipal(),
         body: _ListaOpciones());

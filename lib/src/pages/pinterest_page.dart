@@ -15,7 +15,8 @@ class PinterestPage extends StatelessWidget {
       child: Scaffold(
         // body: PinterestMenu()
         //PinterestGird(),
-        body: Stack(children: [
+        body: Stack(
+          children: [ 
           PinterestGird(),
           _PinterestMenuLocation(),
         ]),
@@ -76,8 +77,8 @@ class PinterestGird extends StatefulWidget {
 }
 
 class _PinterestGirdState extends State<PinterestGird> {
-  final List<int> items = List.generate(200, (index) => 1);
-  ScrollController scrollController = ScrollController();
+  final List<int> items = List.generate(100, (index) => 1);
+ ScrollController scrollController = ScrollController();
   double scrollAnterior = 0.0;
 
   @override
@@ -112,8 +113,8 @@ class _PinterestGirdState extends State<PinterestGird> {
       itemBuilder: (BuildContext context, int index) => _PinterestItems(index),
       staggeredTileBuilder: (int index) =>
           StaggeredTile.count(2, index.isEven ? 2 : 3),
-      mainAxisSpacing: 4.0,
-      crossAxisSpacing: 4.0,
+      mainAxisSpacing: 4,
+      crossAxisSpacing: 4,
     );
   }
 }

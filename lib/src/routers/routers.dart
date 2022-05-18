@@ -5,7 +5,7 @@ import '../pages/emergency_page.dart';
 import '../pages/graficasCirulares_page.dart';
 import '../pages/header_page.dart';
 import '../pages/pinterest_page.dart';
-import '../pages/slideShow_page.dart';
+import '../pages/slideshow_page.dart';
 import '../pages/sliverList_page.dart';
 import '../retos/cuadradoAnimado_page.dart';
 
