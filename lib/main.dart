@@ -4,6 +4,8 @@ import 'package:disenos_app/src/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'src/models/layout_model.dart';
+
 // import 'src/pages/sliverList_page.dart';
 // import 'package:disenos_app/src/pages/emergency_page.dart';
 // import 'package:disenos_app/src/pages/pinterest_page.dart';
@@ -15,8 +17,15 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => ThemeChanger(2),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ThemeChanger(2),
+        ),
+        ChangeNotifierProvider(
+          create: (_)=> LayoutModel(),
+        ),
+      ],
       child: MyApp(),
     ),
   );
@@ -37,9 +46,9 @@ class MyApp extends StatelessWidget {
           // print('En que orientación estoy${orientation}');
           // return LauncherPage();
           final screenSize = MediaQuery.of(context).size;
-          if(screenSize.width > 500){
-          return LauncherTabletPage();
-          }else{
+          if (screenSize.width > 500) {
+            return LauncherTabletPage();
+          } else {
             return LauncherPage();
           }
         },
