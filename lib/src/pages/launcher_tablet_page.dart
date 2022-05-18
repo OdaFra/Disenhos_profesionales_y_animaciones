@@ -1,3 +1,4 @@
+import 'package:disenos_app/src/labs/slideshow_page.dart';
 import 'package:disenos_app/src/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,30 +7,42 @@ import 'package:provider/provider.dart';
 import '../routers/routers.dart';
 
 class LauncherTabletPage extends StatelessWidget {
-
-  
   @override
   Widget build(BuildContext context) {
-    final appBar = Provider.of<ThemeChanger>(context).currentTheme;
+    final appTheme = Provider.of<ThemeChanger>(context);
     return Scaffold(
-      
-        appBar: AppBar(
-          backgroundColor: appBar.accentColor,
+      appBar: AppBar(
+          backgroundColor: appTheme.currentTheme.accentColor,
           centerTitle: true,
-          title: const Text('Diseños en Flutter'),
-        ),
-        drawer: _MenuPrincipal(),
-        body: _ListaOpciones());
+          title: const Text('Diseños en Flutter - Tablet')),
+      drawer: _MenuPrincipal(),
+      // body: _ListaOpciones(),
+      body: Row(
+        children: [
+          SizedBox(
+            width: 300,
+            height: double.infinity,
+            child: _ListaOpciones(),
+          ),
+          Container(
+            width: 1,
+            height: double.infinity,
+            color: appTheme.darkTheme
+                ? Colors.grey
+                : appTheme.currentTheme.accentColor,
+          ),
+          const Expanded(child: SlideShowPage()),
+        ],
+      ),
+    );
   }
 }
 
 class _ListaOpciones extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
-    
-    
+
     return ListView.separated(
       physics: const BouncingScrollPhysics(),
       separatorBuilder: (context, i) => Divider(
@@ -39,13 +52,13 @@ class _ListaOpciones extends StatelessWidget {
       itemBuilder: (context, i) => ListTile(
         leading: FaIcon(pageRoutes[i].icon, color: appTheme.accentColor),
         title: Text(pageRoutes[i].titulo),
-        trailing:  Icon(
+        trailing: Icon(
           Icons.chevron_right,
           color: appTheme.accentColor,
         ),
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) =>pageRoutes[i].page));
-
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => pageRoutes[i].page));
         },
       ),
     );
@@ -53,11 +66,10 @@ class _ListaOpciones extends StatelessWidget {
 }
 
 class _MenuPrincipal extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
-    final appTheme=Provider.of<ThemeChanger>(context);
-    final accentColor= appTheme.currentTheme.accentColor;
+    final appTheme = Provider.of<ThemeChanger>(context);
+    final accentColor = appTheme.currentTheme.accentColor;
     return Drawer(
       child: Container(
         child: Column(
@@ -67,9 +79,9 @@ class _MenuPrincipal extends StatelessWidget {
                 padding: EdgeInsets.all(20),
                 width: double.infinity,
                 height: 200,
-                child:  CircleAvatar(
+                child: CircleAvatar(
                   backgroundColor: accentColor,
-                  child:const Text(
+                  child: const Text(
                     'OR',
                     style: TextStyle(fontSize: 50),
                   ),
@@ -77,34 +89,35 @@ class _MenuPrincipal extends StatelessWidget {
               ),
             ),
             Expanded(child: _ListaOpciones()),
-             ListTile(
-              leading:  Icon(Icons.lightbulb_outline, color:accentColor,),
+            ListTile(
+              leading: Icon(
+                Icons.lightbulb_outline,
+                color: accentColor,
+              ),
               title: const Text('Dark Mode'),
               trailing: Switch.adaptive(
-                value: appTheme.darkTheme,
-                activeColor:accentColor,
-                onChanged: (value){
-                  appTheme.darkTheme=value;
-                }
-              ),
+                  value: appTheme.darkTheme,
+                  activeColor: accentColor,
+                  onChanged: (value) {
+                    appTheme.darkTheme = value;
+                  }),
             ),
-             SafeArea(
-               top:false,
-               bottom: true,
-               left: false,
-               right: false,
-               child: ListTile(
-                leading:  Icon(Icons.lightbulb_outline, color: accentColor),
+            SafeArea(
+              top: false,
+              bottom: true,
+              left: false,
+              right: false,
+              child: ListTile(
+                leading: Icon(Icons.lightbulb_outline, color: accentColor),
                 title: const Text('Custom Theme'),
                 trailing: Switch.adaptive(
-                  activeColor:accentColor,
-                  value: appTheme.customTheme,
-                  onChanged: (value){
-                    appTheme.customTheme=value;
-                  }
-                ),
-                         ),
-             )
+                    activeColor: accentColor,
+                    value: appTheme.customTheme,
+                    onChanged: (value) {
+                      appTheme.customTheme = value;
+                    }),
+              ),
+            )
           ],
         ),
       ),
