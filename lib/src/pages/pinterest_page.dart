@@ -121,7 +121,24 @@ class _PinterestGirdState extends State<PinterestGird> {
       count = 2;
     }
 
-    return StaggeredGridView.countBuilder(
+    return 
+    // GridView.custom(
+    //   gridDelegate: SliverQuiltedGridDelegate(
+    //     crossAxisCount: count,
+    //     mainAxisSpacing: 4,
+    //     crossAxisSpacing: 4,
+    //     repeatPattern: QuiltedGridRepeatPattern.inverted,
+    //     pattern: const [
+    //       QuiltedGridTile(3, 2),
+    //       QuiltedGridTile(2, 2),
+    //     ],
+    //   ),
+    //   childrenDelegate: SliverChildBuilderDelegate(
+    //     (context, index) => _PinterestItems(index),
+    //     childCount: items.length
+    //   ),
+    // );
+    StaggeredGridView.countBuilder(
       controller: scrollController,
       crossAxisCount: count,
       itemCount: items.length,
