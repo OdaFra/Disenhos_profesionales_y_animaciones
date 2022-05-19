@@ -10,7 +10,7 @@ class SlideshowPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+ 
     bool isLarge;
     if(MediaQuery.of(context).size.height > 500){
       isLarge= true;

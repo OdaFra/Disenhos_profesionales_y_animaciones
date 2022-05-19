@@ -11,12 +11,11 @@ class PinterestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_)=>_MenuModel(),
+      create: (_) => _MenuModel(),
       child: Scaffold(
         // body: PinterestMenu()
         //PinterestGird(),
-        body: Stack(
-          children: [ 
+        body: Stack(children: [
           PinterestGird(),
           _PinterestMenuLocation(),
         ]),
@@ -28,46 +27,54 @@ class PinterestPage extends StatelessWidget {
 class _PinterestMenuLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final widthPantalla = MediaQuery.of(context).size.width;
-   final mostrar= Provider.of<_MenuModel>(context).mostrar;
-   final appTheme = Provider.of<ThemeChanger  >(context).currentTheme;
+    double widthPantalla = MediaQuery.of(context).size.width;
+    final bool mostrar = Provider.of<_MenuModel>(context).mostrar;
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+
+    if (widthPantalla > 500) {
+      widthPantalla = widthPantalla - 300;
+    }
 
     return Positioned(
         bottom: 30,
         // ignore: sized_box_for_whitespace
         child: Container(
-          width: widthPantalla,
-          child:  Align(
-            child: PinterestMenu(
-              mostrar:mostrar,
-              backgroundColor: appTheme.scaffoldBackgroundColor,
-              activeColor: appTheme.accentColor,
-              // inactiveColor: Colors.blueGrey,
-              items: [
-                PinterestButton(
-          icon: Icons.pie_chart,
-          onPressed: () {
-            print('Icon pie_chart');
-          }),
-      PinterestButton(
-          icon: Icons.search,
-          onPressed: () {
-            print('Icon search');
-          }),
-      PinterestButton(
-          icon: Icons.notifications,
-          onPressed: () {
-            print('Icon notifications');
-          }),
-      PinterestButton(
-          icon: Icons.supervised_user_circle,
-          onPressed: () {
-            print('Icon supervised_user_circle');
-          })
+            width: widthPantalla,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Spacer(),
+                PinterestMenu(
+                  mostrar: mostrar,
+                  backgroundColor: appTheme.scaffoldBackgroundColor,
+                  activeColor: appTheme.accentColor,
+                  // inactiveColor: Colors.blueGrey,
+                  items: [
+                    PinterestButton(
+                        icon: Icons.pie_chart,
+                        onPressed: () {
+                          print('Icon pie_chart');
+                        }),
+                    PinterestButton(
+                        icon: Icons.search,
+                        onPressed: () {
+                          print('Icon search');
+                        }),
+                    PinterestButton(
+                        icon: Icons.notifications,
+                        onPressed: () {
+                          print('Icon notifications');
+                        }),
+                    PinterestButton(
+                        icon: Icons.supervised_user_circle,
+                        onPressed: () {
+                          print('Icon supervised_user_circle');
+                        })
+                  ],
+                ),
+                const Spacer()
               ],
-            ),
-          ),
-        ));
+            )));
   }
 }
 
@@ -78,26 +85,27 @@ class PinterestGird extends StatefulWidget {
 
 class _PinterestGirdState extends State<PinterestGird> {
   final List<int> items = List.generate(100, (index) => 1);
- ScrollController scrollController = ScrollController();
+  ScrollController scrollController = ScrollController();
   double scrollAnterior = 0.0;
 
   @override
   void initState() {
-    
-    scrollController.addListener(() { 
+    scrollController.addListener(() {
       //print('Scroll Listener ${scrollController.offset}');
-      if(scrollController.offset>scrollAnterior && scrollController.offset>150){
+      if (scrollController.offset > scrollAnterior &&
+          scrollController.offset > 150) {
         // print('Ocultar Menu');
         Provider.of<_MenuModel>(context, listen: false).mostrar = false;
-      }else{
+      } else {
         //print('Mostrar Menu');
         Provider.of<_MenuModel>(context, listen: false).mostrar = true;
       }
-    scrollAnterior = scrollController.offset;
+      scrollAnterior = scrollController.offset;
     });
 
     super.initState();
   }
+
   @override
   void dispose() {
     scrollController.dispose();
@@ -106,9 +114,16 @@ class _PinterestGirdState extends State<PinterestGird> {
 
   @override
   Widget build(BuildContext context) {
+    int count;
+    if (MediaQuery.of(context).size.width > 500) {
+      count = 3;
+    } else {
+      count = 2;
+    }
+
     return StaggeredGridView.countBuilder(
       controller: scrollController,
-      crossAxisCount: 4,
+      crossAxisCount: count,
       itemCount: items.length,
       itemBuilder: (BuildContext context, int index) => _PinterestItems(index),
       staggeredTileBuilder: (int index) =>
@@ -122,7 +137,7 @@ class _PinterestGirdState extends State<PinterestGird> {
 class _PinterestItems extends StatelessWidget {
   final int index;
 
-  _PinterestItems(this.index);
+  const _PinterestItems(this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -140,13 +155,11 @@ class _PinterestItems extends StatelessWidget {
   }
 }
 
-
-class _MenuModel with ChangeNotifier{
-
- bool _mostrar = true;
- bool get mostrar => this._mostrar;
- set mostrar (bool valor){
-   this._mostrar = valor;
-   notifyListeners();
- } 
+class _MenuModel with ChangeNotifier {
+  bool _mostrar = true;
+  bool get mostrar => _mostrar;
+  set mostrar(bool valor) {
+    _mostrar = valor;
+    notifyListeners();
+  }
 }
